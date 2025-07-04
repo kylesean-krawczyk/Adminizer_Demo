@@ -1,8 +1,9 @@
-import { FileText, Clock, AlertTriangle, Users, Calculator, Palette, MessageSquare, Mail, UserCheck, Video, Scale, Monitor } from 'lucide-react'
+import { FileText, Clock, AlertTriangle, Users, Settings, Building2, Heart, Baby, Gamepad2, Camera, GraduationCap, Music, Tv, Shield, Users2, Info } from 'lucide-react'
 import { useDocuments } from '../hooks'
 import { useUserManagement } from '../hooks'
 import { format, isAfter, isBefore, addDays } from 'date-fns'
 import { useNavigate } from 'react-router-dom'
+import { APP_VERSION, getVersionInfo } from '../lib/version'
 
 const Dashboard = () => {
   const { documents, loading: documentsLoading } = useDocuments()
@@ -10,6 +11,7 @@ const Dashboard = () => {
   const navigate = useNavigate()
 
   const loading = documentsLoading || userLoading
+  const versionInfo = getVersionInfo()
 
   // Calculate real stats from documents
   const totalDocuments = documents.length
@@ -32,97 +34,97 @@ const Dashboard = () => {
     { label: 'Categories', value: new Set(documents.map(d => d.category)).size.toString(), icon: Users, color: 'bg-green-500' },
   ]
 
-  // Business operation categories
-  const businessCategories = [
+  // Business departments - these would be configurable by admin
+  const businessDepartments = [
     {
-      id: 'hr',
-      name: 'HR',
-      description: 'Human Resources Management',
-      icon: UserCheck,
-      color: 'bg-blue-600 hover:bg-blue-700',
-      textColor: 'text-blue-600',
-      bgColor: 'bg-blue-50',
-      route: '/operations/hr'
-    },
-    {
-      id: 'accounting',
-      name: 'Accounting',
-      description: 'Financial Management & Bookkeeping',
-      icon: Calculator,
-      color: 'bg-green-600 hover:bg-green-700',
-      textColor: 'text-green-600',
-      bgColor: 'bg-green-50',
-      route: '/operations/accounting'
-    },
-    {
-      id: 'legal',
-      name: 'Legal',
-      description: 'Legal Affairs & Compliance',
-      icon: Scale,
-      color: 'bg-gray-600 hover:bg-gray-700',
-      textColor: 'text-gray-600',
-      bgColor: 'bg-gray-50',
-      route: '/operations/legal'
-    },
-    {
-      id: 'branding',
-      name: 'Branding',
-      description: 'Brand Management & Design',
-      icon: Palette,
-      color: 'bg-purple-600 hover:bg-purple-700',
-      textColor: 'text-purple-600',
-      bgColor: 'bg-purple-50',
-      route: '/operations/branding'
-    },
-    {
-      id: 'social-media',
-      name: 'Social Media',
-      description: 'Social Media Management',
-      icon: MessageSquare,
+      id: 'foster-adopt',
+      name: 'Foster & Adopt',
+      description: 'Foster care and adoption services',
+      icon: Heart,
       color: 'bg-pink-600 hover:bg-pink-700',
       textColor: 'text-pink-600',
       bgColor: 'bg-pink-50',
-      route: '/operations/social-media'
+      route: '/department/foster-adopt'
     },
     {
-      id: 'communications',
-      name: 'Communications',
-      description: 'Internal & External Communications',
-      icon: Mail,
+      id: 'r-kids',
+      name: 'R/Kids',
+      description: 'Children\'s ministry and programs',
+      icon: Baby,
+      color: 'bg-blue-600 hover:bg-blue-700',
+      textColor: 'text-blue-600',
+      bgColor: 'bg-blue-50',
+      route: '/department/r-kids'
+    },
+    {
+      id: 'r-youth',
+      name: 'R/Youth',
+      description: 'Youth ministry and activities',
+      icon: Gamepad2,
+      color: 'bg-green-600 hover:bg-green-700',
+      textColor: 'text-green-600',
+      bgColor: 'bg-green-50',
+      route: '/department/r-youth'
+    },
+    {
+      id: 'creative-media',
+      name: 'Creative Media',
+      description: 'Media production and creative services',
+      icon: Camera,
+      color: 'bg-purple-600 hover:bg-purple-700',
+      textColor: 'text-purple-600',
+      bgColor: 'bg-purple-50',
+      route: '/department/creative-media'
+    },
+    {
+      id: 'cge',
+      name: 'CGE',
+      description: 'Christian Growth & Education',
+      icon: GraduationCap,
       color: 'bg-indigo-600 hover:bg-indigo-700',
       textColor: 'text-indigo-600',
       bgColor: 'bg-indigo-50',
-      route: '/operations/communications'
+      route: '/department/cge'
     },
     {
-      id: 'volunteer-management',
-      name: 'Volunteer/People Management',
-      description: 'Volunteer Coordination & Management',
-      icon: Users,
+      id: 'worship',
+      name: 'Worship',
+      description: 'Worship ministry and music',
+      icon: Music,
       color: 'bg-orange-600 hover:bg-orange-700',
       textColor: 'text-orange-600',
       bgColor: 'bg-orange-50',
-      route: '/operations/volunteer-management'
+      route: '/department/worship'
     },
     {
-      id: 'streaming',
-      name: 'Streaming: Video & Podcast',
-      description: 'Media Production & Broadcasting',
-      icon: Video,
+      id: 'sunday-production',
+      name: 'Sunday Production',
+      description: 'Sunday service production and technical',
+      icon: Tv,
       color: 'bg-red-600 hover:bg-red-700',
       textColor: 'text-red-600',
       bgColor: 'bg-red-50',
-      route: '/operations/streaming'
+      route: '/department/sunday-production'
     },
     {
-      id: 'it',
-      name: 'IT & Technology',
-      description: 'Technology Infrastructure & Digital Tools',
-      icon: Monitor,
+      id: 'elder-board',
+      name: 'Elder Board',
+      description: 'Elder board governance and decisions',
+      icon: Shield,
+      color: 'bg-gray-600 hover:bg-gray-700',
+      textColor: 'text-gray-600',
+      bgColor: 'bg-gray-50',
+      route: '/department/elder-board'
+    },
+    {
+      id: 'deacon-board',
+      name: 'Deacon Board',
+      description: 'Deacon board service and support',
+      icon: Users2,
       color: 'bg-cyan-600 hover:bg-cyan-700',
       textColor: 'text-cyan-600',
       bgColor: 'bg-cyan-50',
-      route: '/operations/it'
+      route: '/department/deacon-board'
     }
   ]
 
@@ -135,8 +137,12 @@ const Dashboard = () => {
     .sort((a, b) => new Date(a.expiry_date!).getTime() - new Date(b.expiry_date!).getTime())
     .slice(0, 5)
 
-  const handleCategoryClick = (route: string) => {
+  const handleDepartmentClick = (route: string) => {
     navigate(route)
+  }
+
+  const handleOperationsClick = () => {
+    navigate('/operations')
   }
 
   // Show organization setup if user doesn't have one
@@ -144,7 +150,7 @@ const Dashboard = () => {
     return (
       <div className="space-y-8">
         <div>
-          <h2 className="text-3xl font-bold text-gray-900">Welcome to Adminezer</h2>
+          <h2 className="text-3xl font-bold text-gray-900">Welcome to Adminizer</h2>
           <p className="text-gray-600 mt-2">Let's get you set up with your organization</p>
         </div>
 
@@ -175,8 +181,8 @@ const Dashboard = () => {
     return (
       <div className="space-y-6">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Business Operations Dashboard</h2>
-          <p className="text-gray-600">Centralized hub for all your business operations</p>
+          <h2 className="text-2xl font-bold text-gray-900">Dashboard</h2>
+          <p className="text-gray-600">Welcome to your organization dashboard</p>
         </div>
         <div className="animate-pulse">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
@@ -201,16 +207,27 @@ const Dashboard = () => {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h2 className="text-3xl font-bold text-gray-900">Business Operations Dashboard</h2>
-        <p className="text-gray-600 mt-2">
-          Centralized hub for all your business operations and document management
-          {organization && (
-            <span className="block text-sm text-blue-600 mt-1">
-              {organization.name}
-            </span>
-          )}
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-3xl font-bold text-gray-900">Dashboard</h2>
+          <p className="text-gray-600 mt-2">
+            Welcome to your organization dashboard
+            {organization && (
+              <span className="block text-sm text-blue-600 mt-1">
+                {organization.name}
+              </span>
+            )}
+          </p>
+        </div>
+        
+        {/* Version Info */}
+        <div className="flex items-center space-x-2 text-sm text-gray-500">
+          <Info className="h-4 w-4" />
+          <span>v{APP_VERSION}</span>
+          <span className="px-2 py-1 bg-gray-100 rounded-full text-xs">
+            {versionInfo.environment}
+          </span>
+        </div>
       </div>
 
       {/* Quick Stats */}
@@ -230,35 +247,76 @@ const Dashboard = () => {
         ))}
       </div>
 
-      {/* Business Operations Categories */}
+      {/* Business Departments */}
       <div className="bg-white rounded-lg shadow p-8">
         <div className="mb-6">
-          <h3 className="text-2xl font-bold text-gray-900">Business Operations</h3>
-          <p className="text-gray-600 mt-2">Access your integrated business tools and services</p>
+          <h3 className="text-2xl font-bold text-gray-900">Business Departments</h3>
+          <p className="text-gray-600 mt-2">Access your department-specific tools and resources</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {businessCategories.map((category) => (
+          {businessDepartments.map((department) => (
             <button
-              key={category.id}
-              onClick={() => handleCategoryClick(category.route)}
+              key={department.id}
+              onClick={() => handleDepartmentClick(department.route)}
               className="group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-6 text-left transition-all duration-200 hover:border-gray-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
-              <div className={`inline-flex h-12 w-12 items-center justify-center rounded-lg ${category.bgColor} mb-4 group-hover:scale-110 transition-transform duration-200`}>
-                <category.icon className={`h-6 w-6 ${category.textColor}`} />
+              <div className={`inline-flex h-12 w-12 items-center justify-center rounded-lg ${department.bgColor} mb-4 group-hover:scale-110 transition-transform duration-200`}>
+                <department.icon className={`h-6 w-6 ${department.textColor}`} />
               </div>
               
               <h4 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-gray-700">
-                {category.name}
+                {department.name}
               </h4>
               
               <p className="text-sm text-gray-600 group-hover:text-gray-500">
-                {category.description}
+                {department.description}
               </p>
               
               <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-gray-200 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
             </button>
           ))}
+        </div>
+      </div>
+
+      {/* Operations Access */}
+      <div className="bg-white rounded-lg shadow p-8">
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h3 className="text-2xl font-bold text-gray-900">Business Operations</h3>
+            <p className="text-gray-600 mt-2">Access administrative and operational tools</p>
+          </div>
+          <button
+            onClick={handleOperationsClick}
+            className="group relative overflow-hidden rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-4 text-white transition-all duration-200 hover:from-blue-700 hover:to-indigo-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          >
+            <div className="flex items-center space-x-3">
+              <Building2 className="h-6 w-6" />
+              <span className="text-lg font-semibold">Operations Center</span>
+            </div>
+            <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-200"></div>
+          </button>
+        </div>
+        
+        <div className="bg-blue-50 rounded-lg p-6">
+          <div className="flex items-start space-x-4">
+            <div className="bg-blue-100 rounded-lg p-3">
+              <Settings className="h-6 w-6 text-blue-600" />
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold text-blue-900 mb-2">Operations Center</h4>
+              <p className="text-blue-800 mb-4">
+                Access HR, Accounting, Legal, IT, and other administrative functions. 
+                Manage integrations, compliance, and organizational operations.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <span className="px-3 py-1 bg-blue-200 text-blue-800 rounded-full text-sm">HR Management</span>
+                <span className="px-3 py-1 bg-blue-200 text-blue-800 rounded-full text-sm">Financial Operations</span>
+                <span className="px-3 py-1 bg-blue-200 text-blue-800 rounded-full text-sm">Legal Compliance</span>
+                <span className="px-3 py-1 bg-blue-200 text-blue-800 rounded-full text-sm">IT & Technology</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

@@ -8,6 +8,8 @@ import DocumentList from './components/DocumentList'
 import DocumentUpload from './components/DocumentUpload'
 import Navigation from './components/Navigation'
 import OperationsPage from './components/Operations/OperationsPage'
+import OperationsLandingPage from './components/Operations/OperationsLandingPage'
+import DepartmentPage from './components/Departments/DepartmentPage'
 import UserManagementPage from './components/UserManagement/UserManagementPage'
 import InviteAcceptPage from './components/UserManagement/InviteAcceptPage'
 import OAuthCallbackPage from './components/OAuth/OAuthCallbackPage'
@@ -36,7 +38,9 @@ function App() {
                     <Route path="/" element={<Dashboard />} />
                     <Route path="/documents" element={<DocumentList />} />
                     <Route path="/upload" element={<DocumentUpload />} />
+                    <Route path="/operations" element={<OperationsLandingPage />} />
                     <Route path="/operations/:category" element={<OperationsPage />} />
+                    <Route path="/department/:department" element={<DepartmentPage />} />
                     <Route path="/users" element={<UserManagementPage />} />
                     <Route path="/oauth" element={<OAuthConnectionManager />} />
                   </Routes>

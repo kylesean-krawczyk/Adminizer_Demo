@@ -1,17 +1,30 @@
 import { Link, useLocation } from 'react-router-dom'
-import { FileText, Upload, BarChart3, LogOut, User, Users, Shield } from 'lucide-react'
+import { FileText, Upload, BarChart3, LogOut, User, Users, Shield, Building2 } from 'lucide-react'
 import { useAuth } from '../contexts/DemoAuthContext'
 import { useUserManagement } from '../hooks'
+import { useState, useEffect } from 'react'
+import LogoUpload from './Navigation/LogoUpload'
+import CustomLogo from './Navigation/CustomLogo'
 
 const Navigation = () => {
   const location = useLocation()
   const { user, signOut } = useAuth()
   const { userProfile, isAdmin } = useUserManagement()
+  const [customLogo, setCustomLogo] = useState<string | null>(null)
+
+  // Load custom logo from localStorage on component mount
+  useEffect(() => {
+    const savedLogo = localStorage.getItem('custom-logo')
+    if (savedLogo) {
+      setCustomLogo(savedLogo)
+    }
+  }, [])
 
   const navItems = [
     { path: '/', label: 'Dashboard', icon: BarChart3 },
     { path: '/documents', label: 'Documents', icon: FileText },
     { path: '/upload', label: 'Upload', icon: Upload },
+    { path: '/operations', label: 'Operations', icon: Building2 },
   ]
 
   // Add admin-only items
@@ -26,6 +39,10 @@ const Navigation = () => {
     } catch (error) {
       console.error('Error signing out:', error)
     }
+  }
+
+  const handleLogoChange = (logoUrl: string | null) => {
+    setCustomLogo(logoUrl)
   }
 
   const getRoleBadge = (role: string) => {
@@ -46,9 +63,21 @@ const Navigation = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-8">
-            <h1 className="text-xl font-bold text-gray-900">
-              Adminezer
-            </h1>
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2">
+                <CustomLogo logoUrl={customLogo || ''} />
+                <LogoUpload 
+                  currentLogo={customLogo || undefined}
+                  onLogoChange={handleLogoChange}
+                  isAdmin={isAdmin}
+                />
+              </div>
+              
+              {/* Version Indicator */}
+              <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+                v2.1.0
+              </span>
+            </div>
             <div className="flex space-x-4">
               {navItems.map(({ path, label, icon: Icon }) => (
                 <Link

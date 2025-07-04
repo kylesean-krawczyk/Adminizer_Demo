@@ -1,4 +1,4 @@
-# Adminezer - Nonprofit Document Management System
+# Adminizer - Nonprofit Document Management System
 
 A comprehensive document management and business operations platform designed specifically for nonprofit organizations.
 
@@ -66,7 +66,7 @@ This application includes a comprehensive demo mode for portfolio demonstration:
 1. Clone the repository
 ```bash
 git clone [repository-url]
-cd adminezer
+cd adminizer
 ```
 
 2. Install dependencies
