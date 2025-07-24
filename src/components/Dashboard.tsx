@@ -1,4 +1,4 @@
-import { FileText, Clock, AlertTriangle, Users, Settings, Building2, Heart, Baby, Gamepad2, Camera, GraduationCap, Music, Tv, Shield, Users2, Info } from 'lucide-react'
+import { FileText, Clock, AlertTriangle, Users, Settings, Building2, Heart, Baby, Gamepad2, Camera, GraduationCap, Music, Tv, Shield, Users2, Info, DollarSign } from 'lucide-react'
 import { useDocuments } from '../hooks'
 import { useUserManagement } from '../hooks'
 import { format, isAfter, isBefore, addDays } from 'date-fns'
@@ -128,6 +128,24 @@ const Dashboard = () => {
     }
   ]
 
+  // Add Fundraising & Donor Management department
+  const fundraisingDepartment = {
+    id: 'fundraising-donor-management',
+    name: 'Fundraising & Donor Management',
+    description: 'AI-powered donor analytics and fundraising insights',
+    icon: DollarSign,
+    color: 'bg-emerald-600 hover:bg-emerald-700',
+    textColor: 'text-emerald-600',
+    bgColor: 'bg-emerald-50',
+    route: '/department/fundraising-donor-management'
+  }
+
+  // Combine all departments
+  const allDepartments = [
+    ...businessDepartments,
+    fundraisingDepartment
+  ]
+
   // Get recent documents (last 5)
   const recentDocuments = documents.slice(0, 5)
 
@@ -255,7 +273,7 @@ const Dashboard = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {businessDepartments.map((department) => (
+          {allDepartments.map((department) => (
             <button
               key={department.id}
               onClick={() => handleDepartmentClick(department.route)}

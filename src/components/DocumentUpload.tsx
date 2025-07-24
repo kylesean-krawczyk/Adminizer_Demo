@@ -31,6 +31,7 @@ const DocumentUpload = () => {
     'Funding',
     'Financial',
     'Operations',
+    'Donor Data',
     'Other'
   ]
 
@@ -77,6 +78,15 @@ const DocumentUpload = () => {
     if (!formData.category) {
       alert('Please select a category')
       return
+    }
+
+    // Validate donor data files
+    if (formData.category === 'Donor Data') {
+      const invalidFiles = files.filter(file => !file.name.toLowerCase().endsWith('.csv'))
+      if (invalidFiles.length > 0) {
+        alert('Donor Data files must be in CSV format. Please select only CSV files.')
+        return
+      }
     }
 
     setUploading(true)
@@ -181,6 +191,11 @@ const DocumentUpload = () => {
                     </button>
                   </div>
                 ))}
+                {formData.category === 'Donor Data' && (
+                  <p className="text-xs text-blue-600 mt-1 bg-blue-50 p-2 rounded">
+                    💡 Donor Data files will be automatically processed for analytics. Only CSV files are supported for this category.
+                  </p>
+                )}
               </div>
             </div>
           )}

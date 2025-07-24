@@ -165,6 +165,14 @@ export const useDemoDocuments = () => {
     // Demo mode doesn't need to refetch
   }
 
+  const readDocumentContent = async (_filePath: string): Promise<string | null> => {
+    // Demo mode - return sample CSV content
+    return `First Name,Last Name,Amount,Date
+John,Smith,100.00,2024-01-15
+Jane,Doe,250.50,2024-01-20
+Bob,Johnson,75.00,2024-01-25`
+  }
+
   return {
     documents,
     loading,
@@ -173,6 +181,7 @@ export const useDemoDocuments = () => {
     updateDocument,
     deleteDocument,
     downloadDocument,
+    readDocumentContent,
     refetch
   }
 }

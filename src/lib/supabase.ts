@@ -23,4 +23,5 @@ export type Document = {
   organization_id: string | null
   created_at: string
   updated_at: string
+  is_donor_data_processed: boolean
 }

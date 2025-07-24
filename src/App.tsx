@@ -15,6 +15,7 @@ import InviteAcceptPage from './components/UserManagement/InviteAcceptPage'
 import OAuthCallbackPage from './components/OAuth/OAuthCallbackPage'
 import OAuthConnectionManager from './components/OAuth/OAuthConnectionManager'
 import DemoModeIndicator from './components/Demo/DemoModeIndicator'
+import FundraisingDepartmentPage from './components/Departments/FundraisingDepartmentPage'
 
 function App() {
   const AuthContextProvider = isDemoMode ? DemoAuthProvider : AuthProvider
@@ -41,6 +42,7 @@ function App() {
                     <Route path="/operations" element={<OperationsLandingPage />} />
                     <Route path="/operations/:category" element={<OperationsPage />} />
                     <Route path="/department/:department" element={<DepartmentPage />} />
+                    <Route path="/department/fundraising-donor-management" element={<FundraisingDepartmentPage />} />
                     <Route path="/users" element={<UserManagementPage />} />
                     <Route path="/oauth" element={<OAuthConnectionManager />} />
                   </Routes>

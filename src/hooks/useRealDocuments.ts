@@ -136,6 +136,22 @@ export const useDocuments = () => {
     }
   }
 
+  const readDocumentContent = async (filePath: string): Promise<string | null> => {
+    try {
+      const { data, error } = await supabase.storage
+        .from('documents')
+        .download(filePath)
+
+      if (error) throw error
+
+      const text = await data.text()
+      return text
+    } catch (err) {
+      console.error('Error reading document content:', err)
+      return null
+    }
+  }
+
   useEffect(() => {
     if (userProfile) {
       fetchDocuments()
@@ -150,6 +166,7 @@ export const useDocuments = () => {
     updateDocument,
     deleteDocument,
     downloadDocument,
+    readDocumentContent,
     refetch: fetchDocuments
   }
 }
