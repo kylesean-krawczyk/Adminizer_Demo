@@ -17,7 +17,7 @@ export class EnhancedDonorAnalytics extends DonorAnalytics {
     monthlyTrends: any[],
     economicIndicators: EconomicIndicator[]
   ): EnhancedForecastData {
-    const baseForecast = super.generateForecast ? super.generateForecast(monthlyTrends) : this.getBaseForecast(monthlyTrends);
+    const baseForecast = super.generateForecast(monthlyTrends);
     
     // Calculate economic impact factors
     const economicFactors = this.calculateEconomicImpact(economicIndicators);
@@ -29,26 +29,6 @@ export class EnhancedDonorAnalytics extends DonorAnalytics {
       ...baseForecast,
       economicFactors,
       adjustedPredictions
-    };
-  }
-
-  private static getBaseForecast(monthlyTrends: any[]): any {
-    if (monthlyTrends.length < 3) {
-      return {
-        nextMonth: { predictedAmount: 0, confidence: 0 },
-        nextQuarter: { predictedAmount: 0, confidence: 0 },
-        trendDirection: 'stable'
-      };
-    }
-
-    const amounts = monthlyTrends.map(trend => trend.amount);
-    const recentTrends = amounts.slice(-6);
-    const avgAmount = recentTrends.reduce((sum, amount) => sum + amount, 0) / recentTrends.length;
-    
-    return {
-      nextMonth: { predictedAmount: avgAmount, confidence: 0.7 },
-      nextQuarter: { predictedAmount: avgAmount * 3, confidence: 0.6 },
-      trendDirection: 'stable' as const
     };
   }
 
@@ -197,25 +177,27 @@ export class EnhancedDonorAnalytics extends DonorAnalytics {
     };
   }
 
-  private static analyzeSeasonalPatterns(donorData: DonorData[]) {
-    const monthlyData = new Map<string, { total: number; count: number }>();
+  private static analyzeSeasonalPatterns(donorData: DonorData[]): any[] {
+    // Group donations by month and calculate averages
+    const monthlyData = new Map<string, { amount: number; count: number }>();
     
     donorData.forEach(donor => {
       donor.donations.forEach(donation => {
-        const month = donation.date.toLocaleString('default', { month: 'long' });
-        if (!monthlyData.has(month)) {
-          monthlyData.set(month, { total: 0, count: 0 });
+        const date = new Date(donation.date);
+        const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+        
+        if (!monthlyData.has(monthKey)) {
+          monthlyData.set(monthKey, { amount: 0, count: 0 });
         }
-        const data = monthlyData.get(month)!;
-        data.total += donation.amount;
+        const data = monthlyData.get(monthKey)!;
+        data.amount += donation.amount;
         data.count += 1;
       });
     });
-
+    
     return Array.from(monthlyData.entries()).map(([month, data]) => ({
       month,
-      averageAmount: data.total / data.count,
-      totalAmount: data.total,
+      averageAmount: data.amount / data.count,
       donationCount: data.count
     }));
   }

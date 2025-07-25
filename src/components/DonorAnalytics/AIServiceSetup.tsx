@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Settings, CheckCircle, XCircle, AlertCircle, ExternalLink, Brain } from 'lucide-react';
+import { CheckCircle, XCircle, AlertCircle, Brain } from 'lucide-react';
+import { AIService } from '../../Services/aiService';
 
 export const AIServiceSetup: React.FC = () => {
   const [connectionStatus, setConnectionStatus] = useState<{ success: boolean; message: string } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedService, setSelectedService] = useState('openai');
 
   const availableServices = AIService.getAvailableServices();
 

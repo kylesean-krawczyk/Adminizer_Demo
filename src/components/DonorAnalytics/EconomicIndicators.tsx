@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { TrendingUp, DollarSign, BarChart3, Activity, RefreshCw, AlertCircle, CheckCircle, XCircle, Cloud } from 'lucide-react';
+import { TrendingUp, DollarSign, BarChart3, Activity, RefreshCw, AlertCircle, XCircle, Cloud } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { EconomicDataService } from '../../Services/economicDataService';
-import { EconomicIndicator } from '../types';
-import { formatCurrency, formatNumber, formatPercentage } from '../../utils/helpers';
+import { EconomicIndicator } from '../../types';
+import { formatNumber, formatPercentage } from '../../utils/helpers';
 
 export const EconomicIndicators: React.FC = () => {
   const [indicators, setIndicators] = useState<EconomicIndicator[]>([]);
@@ -36,7 +36,7 @@ export const EconomicIndicators: React.FC = () => {
     setLoading(true);
     setError(null);
     try {
-      const data = await EconomicDataService.getAllEconomicIndicators();
+      const data = await EconomicDataService.getAllIndicators();
       setIndicators(data);
       if (data.length > 0) {
         setSelectedIndicator(data[0]);

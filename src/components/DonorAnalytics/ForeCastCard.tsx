@@ -1,5 +1,5 @@
 import React from 'react';
-import { ForecastData } from '../types';
+import { ForecastData } from '../../types';
 import { formatCurrency, formatPercentage } from '../../utils/helpers';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 

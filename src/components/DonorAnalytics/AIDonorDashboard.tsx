@@ -1,5 +1,5 @@
 import React from 'react';
-import { AnalysisResult } from '../types';
+import { AnalysisResult } from '../../types';
 import { MetricsCard } from './MetricsCard';
 import { DonationChart } from './DonationChart';
 import { RetentionChart } from './RetentionChart';

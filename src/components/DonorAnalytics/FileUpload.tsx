@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { Upload, FileText, AlertCircle, CheckCircle } from 'lucide-react';
 import { DataParser } from '../../utils/dataParser';
-import { DonorData, FileUploadResult } from '../types';
+import { DonorData, FileUploadResult } from '../../types';
 
 interface FileUploadProps {
   onDataLoaded: (data: DonorData[]) => void;

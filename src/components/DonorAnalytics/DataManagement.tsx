@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { saveAs } from 'file-saver';
 import { Download, Trash2, Upload, Calendar, Database } from 'lucide-react';
 import { DataStorage } from '../../utils/dataStorage';
-import { DonorDataSyncService } from '../../services/donorDataSyncService';
-import { DonorData } from '../types';
-import { formatNumber, formatCurrency } from '../../utils/helpers';
+import { DonorDataSyncService } from '../../Services/donorDataSyncService';
+import { DonorData } from '../../types';
+import { formatNumber } from '../../utils/helpers';
 import { formatDate } from '../../utils/dateUtils';
 
 interface DataManagementProps {

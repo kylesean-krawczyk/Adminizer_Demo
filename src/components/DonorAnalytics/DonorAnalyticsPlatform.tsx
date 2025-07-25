@@ -8,7 +8,7 @@ import { AllDonorsDirectory } from './AllDonorsDirectory';
 import { DataStorage } from '../../utils/dataStorage';
 import { DonorAnalytics } from '../../utils/analytics';
 import { DonorData, AnalysisResult } from '../../types';
-import { DonorDataSyncService } from '../../services/donorDataSyncService';
+import { DonorDataSyncService } from '../../Services/donorDataSyncService';
 import { BarChart3, Shield, TrendingUp, Upload, Database, Users } from 'lucide-react';
 
 function DonorAnalyticsPlatform() {

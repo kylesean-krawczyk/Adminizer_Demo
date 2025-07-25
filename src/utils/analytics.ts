@@ -1,5 +1,5 @@
 import { DonorData, AnalysisResult, MonthlyTrend, RetentionData, ForecastData } from '../types';
-import { format, subMonths, getYear, getMonth } from 'date-fns';
+import { format, subMonths } from 'date-fns';
 
 export class DonorAnalytics {
   static analyzeData(donors: DonorData[]): AnalysisResult {

@@ -1,7 +1,7 @@
 import React from 'react';
-import { EnhancedForecastData } from '../types';
+import { EnhancedForecastData } from '../../types';
 import { formatCurrency, formatPercentage } from '../../utils/helpers';
-import { TrendingUp, TrendingDown, Minus, DollarSign, BarChart3 } from 'lucide-react';
+import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 
 interface EnhancedForecastCardProps {
   forecast: EnhancedForecastData;

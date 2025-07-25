@@ -1,5 +1,5 @@
-import { useParams, useNavigate } from 'react-router-dom'
-import { ArrowLeft, Settings, FileText, Users, Plus, Lock, DollarSign, TrendingUp, BarChart3, Brain } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { ArrowLeft, Settings, FileText, Lock, DollarSign, TrendingUp, BarChart3, Brain } from 'lucide-react'
 import { useDocuments } from '../../hooks'
 import { useUserManagement } from '../../hooks'
 import DocumentActionsWidget from '../Operations/DocumentActionsWidget'

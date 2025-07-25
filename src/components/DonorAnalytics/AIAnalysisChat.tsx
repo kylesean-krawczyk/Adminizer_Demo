@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Bot, User, Loader, TrendingUp, BarChart3, Brain } from 'lucide-react';
-import { DonorData } from '../types';
+import { DonorData } from '../../types';
 import { formatCurrency } from '../../utils/helpers';
 
 interface AIAnalysisChatProps {

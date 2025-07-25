@@ -1,8 +1,8 @@
 import React, { useState, useMemo } from 'react';
-import { DonorData } from '../types';
+import { DonorData } from '../../types';
 import { formatCurrency, formatNumber } from '../../utils/helpers';
 import { formatDate } from '../../utils/dateUtils';
-import { Search, Filter, Mail, Phone, Calendar, DollarSign, Gift, User } from 'lucide-react';
+import { Search, Filter, Mail, Phone, DollarSign, Gift, User } from 'lucide-react';
 
 interface AllDonorsDirectoryProps {
   donors: DonorData[];
@@ -11,7 +11,7 @@ interface AllDonorsDirectoryProps {
 export const AllDonorsDirectory: React.FC<AllDonorsDirectoryProps> = ({ donors }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState<'totalAmount' | 'donationCount' | 'averageDonation' | 'lastDonation' | 'name'>('totalAmount');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+  const [sortOrder] = useState<'asc' | 'desc'>('desc');
   const [filterBy, setFilterBy] = useState<'all' | 'frequent' | 'regular' | 'occasional' | 'one-time'>('all');
 
   const filteredAndSortedDonors = useMemo(() => {
@@ -68,15 +68,6 @@ export const AllDonorsDirectory: React.FC<AllDonorsDirectoryProps> = ({ donors }
       case 'regular': return 'bg-blue-100 text-blue-800';
       case 'occasional': return 'bg-yellow-100 text-yellow-800';
       default: return 'bg-gray-100 text-gray-800';
-    }
-  };
-
-  const handleSort = (newSortBy: typeof sortBy) => {
-    if (sortBy === newSortBy) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-    } else {
-      setSortBy(newSortBy);
-      setSortOrder('desc');
     }
   };
 
@@ -147,7 +138,7 @@ export const AllDonorsDirectory: React.FC<AllDonorsDirectoryProps> = ({ donors }
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredAndSortedDonors.map((donor, index) => (
+            {filteredAndSortedDonors.map((donor) => (
               <div key={donor.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
                 {/* Donor Header */}
                 <div className="flex items-start justify-between mb-3">

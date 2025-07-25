@@ -1,5 +1,5 @@
-import { DonorData, Donation } from '../types';
-import { encryptData, decryptData, generateId } from './helpers';
+import { DonorData } from '../types';
+import { encryptData, decryptData } from './helpers';
 
 const STORAGE_KEY = 'donor_analytics_data';
 const ENCRYPTION_KEY = 'donor_data_key_2024'; // In production, this should be user-specific

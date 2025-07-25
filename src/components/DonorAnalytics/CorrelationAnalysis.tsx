@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ScatterChart, Scatter } from 'recharts';
 import { TrendingUp, TrendingDown, BarChart3, RefreshCw } from 'lucide-react';
-import { MonthlyTrend, EconomicIndicator } from '../types';
+import { MonthlyTrend, EconomicIndicator } from '../../types';
 import { EconomicDataService } from '../../Services/economicDataService';
-import { formatCurrency, formatNumber, formatPercentage } from '../../utils/helpers';
+import { formatCurrency, formatNumber } from '../../utils/helpers';
 
 interface CorrelationAnalysisProps {
   monthlyTrends: MonthlyTrend[];
@@ -67,7 +67,7 @@ export const CorrelationAnalysis: React.FC<CorrelationAnalysisProps> = ({ monthl
       const trendDate = new Date(trend.year, getMonthIndex(trend.month.split(' ')[0]), 1);
       
       // Find matching economic data point (within same month/year)
-      const economicPoint = indicator.data.find(econ => {
+      const economicPoint = indicator.data.find((econ: any) => {
         const econDate = new Date(econ.date);
         return econDate.getFullYear() === trendDate.getFullYear() && 
                econDate.getMonth() === trendDate.getMonth();

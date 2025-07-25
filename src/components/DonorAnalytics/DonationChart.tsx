@@ -6,11 +6,9 @@ import {
   YAxis, 
   CartesianGrid, 
   Tooltip, 
-  ResponsiveContainer,
-  BarChart,
-  Bar
+  ResponsiveContainer
 } from 'recharts';
-import { MonthlyTrend } from '../types';
+import { MonthlyTrend } from '../../types';
 import { formatCurrency } from '../../utils/helpers';
 
 interface DonationChartProps {

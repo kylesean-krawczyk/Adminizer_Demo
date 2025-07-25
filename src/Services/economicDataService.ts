@@ -2,12 +2,10 @@ import { EconomicIndicator, EconomicDataPoint } from '../types';
 
 export class EconomicDataService {
   private static readonly FRED_API_BASE = 'https://api.stlouisfed.org/fred';
-  private static readonly BLS_API_BASE = 'https://api.bls.gov/publicAPI/v2/timeseries/data';
   private static readonly BEA_API_BASE = 'https://apps.bea.gov/api/data';
   
   // Get API keys from environment variables
   private static readonly FRED_API_KEY = import.meta.env.VITE_FRED_API_KEY;
-  private static readonly BLS_API_KEY = import.meta.env.VITE_BLS_API_KEY;
   private static readonly BEA_API_KEY = import.meta.env.VITE_BEA_API_KEY;
 
   // FRED Series IDs for key economic indicators
@@ -187,7 +185,7 @@ export class EconomicDataService {
       })).reverse() || [];
 
       // Calculate YoY inflation rate
-      return observations.map((obs, index) => {
+      return observations.map((obs: any, index: number) => {
         if (index >= 12) {
           const currentValue = obs.value;
           const yearAgoValue = observations[index - 12].value;

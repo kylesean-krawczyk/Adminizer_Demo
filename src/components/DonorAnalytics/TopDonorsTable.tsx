@@ -1,5 +1,5 @@
 import React from 'react';
-import { DonorData } from '../types';
+import { DonorData } from '../../types';
 import { formatCurrency, formatNumber } from '../../utils/helpers';
 
 interface TopDonorsTableProps {

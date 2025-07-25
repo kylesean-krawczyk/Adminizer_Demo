@@ -1,6 +1,6 @@
 import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
-import { RetentionData } from '../types';
+import { RetentionData } from '../../types';
 import { formatPercentage } from '../../utils/helpers';
 
 interface RetentionChartProps {
@@ -37,12 +37,12 @@ export const RetentionChart: React.FC<RetentionChartProps> = ({ data }) => {
             cx="50%"
             cy="50%"
             labelLine={false}
-            label={({ name, value, absoluteValue }) => `${name}: ${absoluteValue} (${formatPercentage(value)})`}
+            label={({ name, value, absoluteValue }) => `${name}: ${absoluteValue} (${formatPercentage(value ?? 0)})`}
             outerRadius={80}
             fill="#8884d8"
             dataKey="value"
           >
-            {chartData.map((entry, index) => (
+            {chartData.map((_entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>

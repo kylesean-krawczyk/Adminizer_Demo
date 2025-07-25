@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { X, Send, Bot, User, Loader, Brain, Minimize2, Maximize2 } from 'lucide-react';
 import { AIService } from '../../Services/aiService';
-import { DonorData } from '../types';
+import { DonorData } from '../../types';
 
 interface AIDialogBoxProps {
   donorData: DonorData[];

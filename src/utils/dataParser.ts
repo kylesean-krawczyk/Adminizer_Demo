@@ -58,10 +58,9 @@ export class DataParser {
 
   private static parseCSV(file: File): Promise<RawDataRow[]> {
     return new Promise((resolve, reject) => {
-      Papa.parse(file, {
+      Papa.parse(file as any, {
         header: true,
         skipEmptyLines: true,
-        trimHeaders: true,
         dynamicTyping: false,
         complete: (results) => {
           // Filter out critical errors, allow minor ones
@@ -89,7 +88,7 @@ export class DataParser {
   }
 
   private static processRawData(rawData: RawDataRow[]): Donation[] {
-    return rawData.map((row, index) => {
+    return rawData.map((row) => {
       const mappedRow = this.mapFields(row);
       
       // Skip rows that don't have minimum required data or are completely empty
@@ -127,11 +126,11 @@ export class DataParser {
       };
       
       return donation;
-    }).filter((donation): donation is Donation => 
+    }).filter((donation): donation is NonNullable<typeof donation> => 
       donation !== null &&
-      (donation.firstName || donation.lastName) && 
+      !!(donation.firstName || donation.lastName) && 
       donation.amount > 0 && 
-      donation.date
+      !!donation.date
     );
   }
 
