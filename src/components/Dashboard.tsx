@@ -4,6 +4,7 @@ import { useUserManagement } from '../hooks'
 import { format, isAfter, isBefore, addDays } from 'date-fns'
 import { useNavigate } from 'react-router-dom'
 import { APP_VERSION, getVersionInfo } from '../lib/version'
+import { extractColorFromClass } from '../utils/tailwindColors'
 
 const Dashboard = () => {
   const { documents, loading: documentsLoading } = useDocuments()
@@ -163,6 +164,12 @@ const Dashboard = () => {
     navigate('/operations')
   }
 
+  // Debug logging to help identify the issue
+  console.log('Dashboard render - loading:', loading)
+  console.log('Dashboard render - userProfile:', userProfile)
+  console.log('Dashboard render - organization:', organization)
+  console.log('Dashboard render - documents:', documents.length)
+
   // Show organization setup if user doesn't have one
   if (!loading && userProfile && !userProfile.organization_id) {
     return (
@@ -272,27 +279,41 @@ const Dashboard = () => {
           <p className="text-gray-600 mt-2">Access your department-specific tools and resources</p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="hexagon-grid">
           {allDepartments.map((department) => (
-            <button
+            <div
               key={department.id}
-              onClick={() => handleDepartmentClick(department.route)}
-              className="group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-6 text-left transition-all duration-200 hover:border-gray-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              className="hexagon-item"
             >
-              <div className={`inline-flex h-12 w-12 items-center justify-center rounded-lg ${department.bgColor} mb-4 group-hover:scale-110 transition-transform duration-200`}>
-                <department.icon className={`h-6 w-6 ${department.textColor}`} />
-              </div>
-              
-              <h4 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-gray-700">
-                {department.name}
-              </h4>
-              
-              <p className="text-sm text-gray-600 group-hover:text-gray-500">
-                {department.description}
-              </p>
-              
-              <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-gray-200 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
-            </button>
+              <button
+                onClick={() => handleDepartmentClick(department.route)}
+                className="hexagon-button group"
+                style={{
+                  '--hex-border-color': '#e2e8f0',
+                  '--hex-content-bg': '#ffffff',
+                  '--hex-icon-color': extractColorFromClass(department.textColor),
+                  '--hex-title-color': '#1f2937',
+                  '--hex-description-color': '#6b7280',
+                  '--hex-hover-border-color': extractColorFromClass(department.color.replace('bg-', '').replace(' hover:bg-', '')),
+                  '--hex-hover-content-bg': extractColorFromClass(department.bgColor),
+                  '--hex-hover-icon-color': extractColorFromClass(department.color.replace('bg-', '').replace(' hover:bg-', '')),
+                  '--hex-hover-title-color': extractColorFromClass(department.color.replace('bg-', '').replace(' hover:bg-', '')),
+                  '--hex-hover-description-color': '#4b5563'
+                } as React.CSSProperties}
+              >
+                <div className="hexagon-content">
+                  <div className="hexagon-icon">
+                    <department.icon className="h-8 w-8" />
+                  </div>
+                  <h4 className="hexagon-title">
+                    {department.name}
+                  </h4>
+                  <p className="hexagon-description">
+                    {department.description}
+                  </p>
+                </div>
+              </button>
+            </div>
           ))}
         </div>
       </div>

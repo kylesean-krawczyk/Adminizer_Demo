@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, UserCheck, Calculator, Scale, Palette, MessageSquare, Mail, Users, Video, Monitor } from 'lucide-react'
 import { useDocuments } from '../../hooks'
 import { useUserManagement } from '../../hooks'
+import { extractColorFromClass } from '../../utils/tailwindColors'
 
 const OperationsLandingPage = () => {
   const navigate = useNavigate()
@@ -168,27 +169,41 @@ const OperationsLandingPage = () => {
           <p className="text-gray-600 mt-2">Access your integrated business tools and administrative functions</p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="hexagon-grid">
           {businessCategories.map((category) => (
-            <button
+            <div
               key={category.id}
-              onClick={() => handleCategoryClick(category.route)}
-              className="group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-6 text-left transition-all duration-200 hover:border-gray-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              className="hexagon-item"
             >
-              <div className={`inline-flex h-12 w-12 items-center justify-center rounded-lg ${category.bgColor} mb-4 group-hover:scale-110 transition-transform duration-200`}>
-                <category.icon className={`h-6 w-6 ${category.textColor}`} />
-              </div>
-              
-              <h4 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-gray-700">
-                {category.name}
-              </h4>
-              
-              <p className="text-sm text-gray-600 group-hover:text-gray-500">
-                {category.description}
-              </p>
-              
-              <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-gray-200 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
-            </button>
+              <button
+                onClick={() => handleCategoryClick(category.route)}
+                className="hexagon-button group"
+                style={{
+                  '--hex-border-color': '#e2e8f0',
+                  '--hex-content-bg': '#ffffff',
+                  '--hex-icon-color': extractColorFromClass(category.textColor),
+                  '--hex-title-color': '#1f2937',
+                  '--hex-description-color': '#6b7280',
+                  '--hex-hover-border-color': extractColorFromClass(category.color.replace('hover:', '')),
+                  '--hex-hover-content-bg': extractColorFromClass(category.bgColor),
+                  '--hex-hover-icon-color': extractColorFromClass(category.color.replace('hover:', '')),
+                  '--hex-hover-title-color': extractColorFromClass(category.color.replace('hover:', '')),
+                  '--hex-hover-description-color': '#4b5563'
+                } as React.CSSProperties}
+              >
+                <div className="hexagon-content">
+                  <div className="hexagon-icon">
+                    <category.icon className="h-8 w-8" />
+                  </div>
+                  <h4 className="hexagon-title">
+                    {category.name}
+                  </h4>
+                  <p className="hexagon-description">
+                    {category.description}
+                  </p>
+                </div>
+              </button>
+            </div>
           ))}
         </div>
       </div>

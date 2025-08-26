@@ -71,3 +71,201 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* Hexagonal Grid Layout */
+.hexagon-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 200px;
+}
+
+.hexagon-item {
+  position: relative;
+  margin: 0.75rem;
+  opacity: 1;
+  visibility: visible;
+}
+
+.hexagon-button {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  overflow: hidden;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Hexagon border using pseudo-element */
+.hexagon-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--hex-border-color, #e2e8f0);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  z-index: 0;
+}
+
+.hexagon-button:hover::before {
+  background: var(--hex-hover-border-color, #3b82f6);
+}
+
+.hexagon-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.4);
+}
+
+.hexagon-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem;
+  height: calc(100% - 6px);
+  width: calc(100% - 6px);
+  margin: 3px;
+  background: var(--hex-content-bg, #ffffff);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.hexagon-button:hover .hexagon-content {
+  background: var(--hex-hover-content-bg, #f0f9ff);
+}
+
+.hexagon-icon {
+  margin-bottom: 0.5rem;
+  color: var(--hex-icon-color, #6b7280);
+  transition: all 0.3s ease;
+}
+
+.hexagon-button:hover .hexagon-icon {
+  color: var(--hex-hover-icon-color, #3b82f6);
+  transform: scale(1.1);
+}
+
+.hexagon-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--hex-title-color, #1f2937);
+  margin-bottom: 0.25rem;
+  line-height: 1.2;
+  transition: color 0.3s ease;
+}
+
+.hexagon-button:hover .hexagon-title {
+  color: var(--hex-hover-title-color, #3b82f6);
+}
+
+.hexagon-description {
+  font-size: 0.65rem;
+  color: var(--hex-description-color, #6b7280);
+  line-height: 1.3;
+  transition: color 0.3s ease;
+}
+
+.hexagon-button:hover .hexagon-description {
+  color: var(--hex-hover-description-color, #4b5563);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hexagon-grid {
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+  
+  .hexagon-button {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .hexagon-content {
+    padding: 0.75rem;
+  }
+  
+  .hexagon-title {
+    font-size: 0.7rem;
+  }
+  
+  .hexagon-description {
+    font-size: 0.55rem;
+  }
+  
+  .hexagon-icon {
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hexagon-button {
+    width: 110px;
+    height: 110px;
+  }
+  
+  .hexagon-content {
+    padding: 0.5rem;
+  }
+  
+  .hexagon-title {
+    font-size: 0.6rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .hexagon-description {
+    font-size: 0.45rem;
+  }
+}
+
+/* Hexagon Grid Animation */
+.hexagon-item {
+  animation: hexagonFadeIn 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.hexagon-item:nth-child(1) { animation-delay: 0.1s; }
+.hexagon-item:nth-child(2) { animation-delay: 0.2s; }
+.hexagon-item:nth-child(3) { animation-delay: 0.3s; }
+.hexagon-item:nth-child(4) { animation-delay: 0.4s; }
+.hexagon-item:nth-child(5) { animation-delay: 0.5s; }
+.hexagon-item:nth-child(6) { animation-delay: 0.6s; }
+.hexagon-item:nth-child(7) { animation-delay: 0.7s; }
+.hexagon-item:nth-child(8) { animation-delay: 0.8s; }
+.hexagon-item:nth-child(9) { animation-delay: 0.9s; }
+.hexagon-item:nth-child(10) { animation-delay: 1.0s; }
+
+@keyframes hexagonFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.7) translateY(30px) rotateY(45deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotateY(0deg);
+  }
+}
+
+
+/* Ensure visibility */
+.hexagon-button {
+  visibility: visible !important;
+  display: flex !important;
+}
